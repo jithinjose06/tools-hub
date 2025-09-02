@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSV Splitter</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="logo">
+        <img src="ImpactLogo-FullColor.png" alt="Tools Hub Logo">
+    </div>
+    <div class="form-section">
+        <div class="container">
+            <h1>CSV FILE SPLITTER</h1>
+            <div class="form-content">
+                <form id="uploadForm">
+                    <input type="file" id="csvFile" accept=".csv" required>
+                    <input type="text" id="programName" placeholder="Program Name" required>
+                    <select id="chunkSize" required>
+                        <option value="1000">1000</option>
+                        <option value="2000">2000</option>
+                    </select>
+                    <button type="submit" class="cta-btn">Split File</button>
+                </form>
+
+                <div id="downloadLinks"></div>
+
+                <div id="progressContainer" style="display: none;">
+                    <div class="progress-bar">
+                        <div id="progress" style="width: 0%;"></div>
+                    </div>
+                    <p id="progressText">0% Complete</p>
+                </div>
+
+                <!-- Go back button styled to match -->
+                <a href="index.html" class="cta-btn">Go Back to Home</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/jszip@3.1.5/dist/jszip.min.js"></script>
+    <script>
+        document.getElementById("uploadForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const fileInput = document.getElementById("csvFile");
+            const chunkSize = parseInt(document.getElementById("chunkSize").value);
+            const programName = document.getElementById("programName").value;
+            const file = fileInput.files[0];
+
+            if (!file || isNaN(chunkSize) || chunkSize <= 0 || !programName) {
+                alert("Please fill in all fields correctly.");
+                return;
+            }
+
+            const progressContainer = document.getElementById('progressContainer');
+            const progress = document.getElementById('progress');
+            const progressText = document.getElementById('progressText');
+            progressContainer.style.display = 'block';
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const csvData = e.target.result.trim();
+                const lines = csvData.split("\n").filter(line => line.trim() !== '');
+                const header = lines[0];
+                const data = lines.slice(1);
+
+                const chunks = [];
+                for (let i = 0; i < data.length; i += chunkSize) {
+                    chunks.push(data.slice(i, i + chunkSize));
+                }
+
+                const zip = new JSZip();
+
+                let processedChunks = 0;
+                const totalChunks = chunks.length;
+
+                const processChunk = (index) => {
+                    if (index < totalChunks) {
+                        const chunk = chunks[index];
+                        const splitData = [header].concat(chunk).join("\n");
+                        zip.file(`${programName}_part_${index + 1}.csv`, splitData);
+
+                        processedChunks++;
+                        const progressPercentage = Math.round((processedChunks / totalChunks) * 100);
+                        progress.style.width = `${progressPercentage}%`;
+                        progressText.textContent = `${progressPercentage}% Complete`;
+
+                        setTimeout(() => processChunk(index + 1), 100);
+                    } else {
+                        zip.generateAsync({ type: "blob" }).then(function(content) {
+                            const downloadLink = document.createElement("a");
+                            downloadLink.href = URL.createObjectURL(content);
+                            downloadLink.download = `${programName}_split.zip`;
+                            downloadLink.textContent = "Download Split Files";
+                            downloadLink.className = "cta-btn";  // Match button style
+                            document.getElementById("downloadLinks").innerHTML = "";
+                            document.getElementById("downloadLinks").appendChild(downloadLink);
+
+                            setTimeout(() => {
+                                progressContainer.style.display = 'none';
+                                progress.style.width = '0%';
+                                progressText.textContent = '0% Complete';
+                            }, 1000);
+                        });
+                    }
+                };
+
+                processChunk(0);
+            };
+
+            reader.readAsText(file);
+        });
+    </script>
+</body>
+</html>
