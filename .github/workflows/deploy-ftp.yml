@@ -17,7 +17,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    needs: [checks]   # require the CI job named "checks" in ci.yml
+    needs: [checks] # require the CI job named "checks" in ci.yml
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -28,10 +28,10 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          protocol: ${{ secrets.FTP_PROTOCOL }}   # set to ftp in secrets
-          local-dir: ./                          # deploy from repo root
+          protocol: ${{ secrets.FTP_PROTOCOL }} # set to ftp in secrets
+          local-dir: ./ # deploy from repo root
           server-dir: ${{ secrets.FTP_REMOTE_DIR }}
-          dangerous-clean-slate: false           # don’t wipe remote dir
+          dangerous-clean-slate: false # don’t wipe remote dir
           exclude: |
             **/.git*
             **/.github/**
