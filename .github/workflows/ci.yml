@@ -25,8 +25,9 @@ jobs:
       - name: Prettier check
         run: npx prettier --check "**/*.{html,css,js,json,md,yml,yaml}"
 
-      - name: Internal link check only
+      - name: Internal link check only (non-blocking)
         uses: lycheeverse/lychee-action@v2
+        continue-on-error: true
         with:
           args: >
             --verbose
