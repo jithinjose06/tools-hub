@@ -15,7 +15,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: '20'
 
       - name: Install dev tools
         run: |
@@ -34,7 +34,6 @@ jobs:
             --accept 200,206,429
             --include "**/*.html"
             --include "**/*.md"
-            --exclude-mail
             --require-https
             --scheme http
             --base ./
