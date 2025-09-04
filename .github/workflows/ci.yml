@@ -17,13 +17,13 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install dev tools
+      - name: Install dev tools (pin Prettier)
         run: |
           npm --yes init -y
-          npm i -D prettier
+          npm i -D prettier@3.3.3
 
       - name: Prettier check
-        run: npx prettier --check "**/*.{html,css,js,json,md,yml,yaml}"
+        run: npx prettier@3.3.3 --check "**/*.{html,css,js,json,md,yml,yaml}"
 
       - name: Internal link check only (non-blocking)
         uses: lycheeverse/lychee-action@v2
