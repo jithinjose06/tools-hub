@@ -1,23 +1,16 @@
 name: Deploy to FastShoes via FTP
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - "**.html"
-      - "**.css"
-      - "**.js"
-      - "**.png"
-      - "**.svg"
-      - "**.jpg"
-      - "**.gif"
-      - "!README.md"
-      - "!CHANGELOG.md"
+  workflow_run:
+    workflows: ["CI (format & links)"]  # wait for your CI workflow
+    types: [completed]
+    branches: [main]                    # only when CI ran on main
 
 jobs:
   deploy:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }} # gate on CI success
     runs-on: ubuntu-latest
-    needs: [checks] # require the CI job named "checks" in ci.yml
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -28,10 +21,10 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          protocol: ${{ secrets.FTP_PROTOCOL }} # set to ftp in secrets
-          local-dir: ./ # deploy from repo root
-          server-dir: ${{ secrets.FTP_REMOTE_DIR }}
-          dangerous-clean-slate: false # don’t wipe remote dir
+          protocol: ftp                          # regular FTP as you confirmed
+          local-dir: ./                          # deploy from repo root
+          server-dir: ${{ secrets.FTP_REMOTE_DIR }}  # e.g. public_html/jithin/tools
+          dangerous-clean-slate: false           # don't wipe remote dir
           exclude: |
             **/.git*
             **/.github/**
