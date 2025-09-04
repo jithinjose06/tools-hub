@@ -8,6 +8,7 @@ labels: bug
 A clear description of the issue.
 
 **Steps to reproduce**
+
 1. Go to '...'
 2. Click '...'
 3. See error
@@ -19,5 +20,6 @@ What you expected to happen.
 If applicable, add screenshots.
 
 **Env**
+
 - Browser:
 - OS:

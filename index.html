@@ -1,48 +1,51 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>TOOLS HUB</title>
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-</head>
-<body>
-  <div class="logo">
-    <img src="ImpactLogo-FullColor.png" alt="Your Logo">
-  </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TOOLS HUB</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="logo">
+      <img src="ImpactLogo-FullColor.png" alt="Your Logo" />
+    </div>
 
-  <div id="splash">
-    <h1 class="zoom-title">TOOLS HUB</h1>
-  </div>
+    <div id="splash">
+      <h1 class="zoom-title">TOOLS HUB</h1>
+    </div>
 
-  <div class="container hidden" id="mainContent">
-    <h1>TOOLS HUB</h1>
-    <a href="csv-splitter.html" class="cta-btn">CSV Splitter Tool</a>
-    <a href="timezone-converter.html" class="cta-btn">Timezone Converter</a>
-    <a href="sql-in-generator.html" class="cta-btn">SQL IN() Generator</a>
-  </div>
+    <div class="container hidden" id="mainContent">
+      <h1>TOOLS HUB</h1>
+      <a href="csv-splitter.html" class="cta-btn">CSV Splitter Tool</a>
+      <a href="timezone-converter.html" class="cta-btn">Timezone Converter</a>
+      <a href="sql-in-generator.html" class="cta-btn">SQL IN() Generator</a>
+    </div>
 
-  <script>
-    window.addEventListener('DOMContentLoaded', () => {
-      const splash = document.getElementById('splash');
-      const main = document.getElementById('mainContent');
-      const seen = sessionStorage.getItem('splashShown');
+    <script>
+      window.addEventListener("DOMContentLoaded", () => {
+        const splash = document.getElementById("splash");
+        const main = document.getElementById("mainContent");
+        const seen = sessionStorage.getItem("splashShown");
 
-      if (seen) {
-        splash.style.display = 'none';
-        main.classList.remove('hidden');
-        main.classList.add('visible');
-      } else {
-        sessionStorage.setItem('splashShown', 'true');
+        if (seen) {
+          splash.style.display = "none";
+          main.classList.remove("hidden");
+          main.classList.add("visible");
+        } else {
+          sessionStorage.setItem("splashShown", "true");
 
-        // Fade in content early, let splash fade out later
-        setTimeout(() => {
-          main.classList.remove('hidden');
-          main.classList.add('visible');
-        }, 2500);
-      }
-    });
-  </script>
-</body>
+          // Fade in content early, let splash fade out later
+          setTimeout(() => {
+            main.classList.remove("hidden");
+            main.classList.add("visible");
+          }, 2500);
+        }
+      });
+    </script>
+  </body>
 </html>

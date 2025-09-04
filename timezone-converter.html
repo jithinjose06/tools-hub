@@ -1,211 +1,237 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>GMT to Timezone Converter</title>
-  <link href="styles.css" rel="stylesheet"/>
-  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
-  <style>
-    .select2-container--default .select2-selection--single {
-      background-color: #fff;
-      border: 2px solid #ced4da;
-      border-radius: 6px;
-      height: 42px;
-      padding: 6px 12px;
-      font-size: 1rem;
-      color: #212529;
-    }
-    .select2-container--default .select2-selection--single .select2-selection__rendered {
-      line-height: 30px;
-      color: #212529;
-    }
-    .select2-container--default .select2-selection--single .select2-selection__arrow {
-      height: 36px;
-      top: 3px;
-    }
-   
-    #result {
-      margin-top: 20px;
-      font-weight: normal;
-      font-size: 1rem;
-      color: black;
-    }
-    #result-time {
-      display: block;
-      font-size: 1.4rem;
-      color: #0077b6;
-      margin-top: 5px;
-      font-weight: 600;
-    }
-  </style>
-</head>
-<body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GMT to Timezone Converter</title>
+    <link href="styles.css" rel="stylesheet" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      .select2-container--default .select2-selection--single {
+        background-color: #fff;
+        border: 2px solid #ced4da;
+        border-radius: 6px;
+        height: 42px;
+        padding: 6px 12px;
+        font-size: 1rem;
+        color: #212529;
+      }
+      .select2-container--default
+        .select2-selection--single
+        .select2-selection__rendered {
+        line-height: 30px;
+        color: #212529;
+      }
+      .select2-container--default
+        .select2-selection--single
+        .select2-selection__arrow {
+        height: 36px;
+        top: 3px;
+      }
+
+      #result {
+        margin-top: 20px;
+        font-weight: normal;
+        font-size: 1rem;
+        color: black;
+      }
+      #result-time {
+        display: block;
+        font-size: 1.4rem;
+        color: #0077b6;
+        margin-top: 5px;
+        font-weight: 600;
+      }
+    </style>
+  </head>
+  <body>
     <div class="logo">
-        <img src="ImpactLogo-FullColor.png" alt="Tools Hub Logo">
+      <img src="ImpactLogo-FullColor.png" alt="Tools Hub Logo" />
     </div>
-  <div class="form-section">
-    <div class="container">
-      <h1>GMT to Timezone Converter</h1>
-      <form id="convertForm">
-        <label for="gmtTime">
+    <div class="form-section">
+      <div class="container">
+        <h1>GMT to Timezone Converter</h1>
+        <form id="convertForm">
+          <label for="gmtTime">
             Enter GMT Date and Time (YYYY-MM-DD HH:MM:SS):
             <span class="tooltip-icon">?</span>
           </label>
-        <input type="text" id="gmtTime" placeholder="2025-06-05 21:57:49" required/>
+          <input
+            type="text"
+            id="gmtTime"
+            placeholder="2025-06-05 21:57:49"
+            required
+          />
 
-        <label for="timezoneSelect">Select Timezone:</label>
-        <select id="timezoneSelect" required>
-          <option value="" disabled selected>Select a timezone...</option>
-          <optgroup label="Asia">
-            <option value="Asia/Kolkata">Asia/Kolkata</option>
-            <option value="Asia/Shanghai">Asia/Shanghai</option>
-            <option value="Asia/Tokyo">Asia/Tokyo</option>
-            <option value="Asia/Seoul">Asia/Seoul</option>
-            <option value="Asia/Singapore">Asia/Singapore</option>
-            <option value="Asia/Dubai">Asia/Dubai</option>
-            <option value="Asia/Hong_Kong">Asia/Hong_Kong</option>
-            <option value="Asia/Bangkok">Asia/Bangkok</option>
-          </optgroup>
-          <optgroup label="North America">
-            <option value="America/Los_Angeles">America/Los_Angeles</option>
-            <option value="America/Denver">America/Denver</option>
-            <option value="America/Chicago">America/Chicago</option>
-            <option value="America/New_York">America/New_York</option>
-            <option value="America/Phoenix">America/Phoenix</option>
-            <option value="America/Toronto">America/Toronto</option>
-            <option value="America/Vancouver">America/Vancouver</option>
-            <option value="America/Mexico_City">America/Mexico_City</option>
-          </optgroup>
-          <optgroup label="Europe">
-            <option value="Europe/London">Europe/London</option>
-            <option value="Europe/Paris">Europe/Paris</option>
-            <option value="Europe/Berlin">Europe/Berlin</option>
-            <option value="Europe/Madrid">Europe/Madrid</option>
-            <option value="Europe/Rome">Europe/Rome</option>
-            <option value="Europe/Amsterdam">Europe/Amsterdam</option>
-            <option value="Europe/Moscow">Europe/Moscow</option>
-          </optgroup>
-          <optgroup label="Australia & Oceania">
-            <option value="Australia/Sydney">Australia/Sydney</option>
-            <option value="Australia/Melbourne">Australia/Melbourne</option>
-            <option value="Pacific/Auckland">Pacific/Auckland</option>
-          </optgroup>
-          <optgroup label="South America">
-            <option value="America/Sao_Paulo">America/Sao_Paulo</option>
-            <option value="America/Buenos_Aires">America/Buenos_Aires</option>
-          </optgroup>
-          <optgroup label="Africa">
-            <option value="Africa/Johannesburg">Africa/Johannesburg</option>
-            <option value="Africa/Cairo">Africa/Cairo</option>
-            <option value="Africa/Nairobi">Africa/Nairobi</option>
-          </optgroup>
-        </select>
+          <label for="timezoneSelect">Select Timezone:</label>
+          <select id="timezoneSelect" required>
+            <option value="" disabled selected>Select a timezone...</option>
+            <optgroup label="Asia">
+              <option value="Asia/Kolkata">Asia/Kolkata</option>
+              <option value="Asia/Shanghai">Asia/Shanghai</option>
+              <option value="Asia/Tokyo">Asia/Tokyo</option>
+              <option value="Asia/Seoul">Asia/Seoul</option>
+              <option value="Asia/Singapore">Asia/Singapore</option>
+              <option value="Asia/Dubai">Asia/Dubai</option>
+              <option value="Asia/Hong_Kong">Asia/Hong_Kong</option>
+              <option value="Asia/Bangkok">Asia/Bangkok</option>
+            </optgroup>
+            <optgroup label="North America">
+              <option value="America/Los_Angeles">America/Los_Angeles</option>
+              <option value="America/Denver">America/Denver</option>
+              <option value="America/Chicago">America/Chicago</option>
+              <option value="America/New_York">America/New_York</option>
+              <option value="America/Phoenix">America/Phoenix</option>
+              <option value="America/Toronto">America/Toronto</option>
+              <option value="America/Vancouver">America/Vancouver</option>
+              <option value="America/Mexico_City">America/Mexico_City</option>
+            </optgroup>
+            <optgroup label="Europe">
+              <option value="Europe/London">Europe/London</option>
+              <option value="Europe/Paris">Europe/Paris</option>
+              <option value="Europe/Berlin">Europe/Berlin</option>
+              <option value="Europe/Madrid">Europe/Madrid</option>
+              <option value="Europe/Rome">Europe/Rome</option>
+              <option value="Europe/Amsterdam">Europe/Amsterdam</option>
+              <option value="Europe/Moscow">Europe/Moscow</option>
+            </optgroup>
+            <optgroup label="Australia & Oceania">
+              <option value="Australia/Sydney">Australia/Sydney</option>
+              <option value="Australia/Melbourne">Australia/Melbourne</option>
+              <option value="Pacific/Auckland">Pacific/Auckland</option>
+            </optgroup>
+            <optgroup label="South America">
+              <option value="America/Sao_Paulo">America/Sao_Paulo</option>
+              <option value="America/Buenos_Aires">America/Buenos_Aires</option>
+            </optgroup>
+            <optgroup label="Africa">
+              <option value="Africa/Johannesburg">Africa/Johannesburg</option>
+              <option value="Africa/Cairo">Africa/Cairo</option>
+              <option value="Africa/Nairobi">Africa/Nairobi</option>
+            </optgroup>
+          </select>
 
-        <button type="submit" class="cta-btn">Convert Time</button>
-      </form>
+          <button type="submit" class="cta-btn">Convert Time</button>
+        </form>
 
-      <div id="result"></div>
-      <a href="index.html" class="cta-btn">Go Back to Home</a>
+        <div id="result"></div>
+        <a href="index.html" class="cta-btn">Go Back to Home</a>
+      </div>
     </div>
-  </div>
 
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-  <script>
-    const timezoneAbbrMap = {
-      "America/Los_Angeles|-420": "PDT",
-      "America/Los_Angeles|-480": "PST",
-      "America/New_York|-300": "EST",
-      "America/New_York|-240": "EDT",
-      "Europe/London|0": "GMT",
-      "Europe/London|60": "BST",
-      "Europe/Paris|60": "CET",
-      "Europe/Paris|120": "CEST",
-      "Asia/Kolkata|330": "IST",
-      "Asia/Shanghai|480": "CST",
-      "Asia/Tokyo|540": "JST",
-      "Asia/Seoul|540": "KST",
-      "Asia/Singapore|480": "SGT",
-      "Asia/Dubai|240": "GST",
-      "Asia/Hong_Kong|480": "HKT",
-      "Asia/Bangkok|420": "ICT",
-      "Australia/Sydney|600": "AEST",
-      "Australia/Sydney|660": "AEDT",
-      "Pacific/Auckland|720": "NZST",
-      "Pacific/Auckland|780": "NZDT",
-      "America/Sao_Paulo|180": "BRT",
-      "America/Buenos_Aires|180": "ART",
-      "Africa/Johannesburg|120": "SAST",
-      "Africa/Cairo|120": "EET",
-      "Africa/Nairobi|180": "EAT"
-    };
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+      const timezoneAbbrMap = {
+        "America/Los_Angeles|-420": "PDT",
+        "America/Los_Angeles|-480": "PST",
+        "America/New_York|-300": "EST",
+        "America/New_York|-240": "EDT",
+        "Europe/London|0": "GMT",
+        "Europe/London|60": "BST",
+        "Europe/Paris|60": "CET",
+        "Europe/Paris|120": "CEST",
+        "Asia/Kolkata|330": "IST",
+        "Asia/Shanghai|480": "CST",
+        "Asia/Tokyo|540": "JST",
+        "Asia/Seoul|540": "KST",
+        "Asia/Singapore|480": "SGT",
+        "Asia/Dubai|240": "GST",
+        "Asia/Hong_Kong|480": "HKT",
+        "Asia/Bangkok|420": "ICT",
+        "Australia/Sydney|600": "AEST",
+        "Australia/Sydney|660": "AEDT",
+        "Pacific/Auckland|720": "NZST",
+        "Pacific/Auckland|780": "NZDT",
+        "America/Sao_Paulo|180": "BRT",
+        "America/Buenos_Aires|180": "ART",
+        "Africa/Johannesburg|120": "SAST",
+        "Africa/Cairo|120": "EET",
+        "Africa/Nairobi|180": "EAT",
+      };
 
-    function getOffsetForTimezone(date, timeZone) {
-      const options = { timeZone, timeZoneName: "short" };
-      const parts = new Intl.DateTimeFormat("en-US", options).formatToParts(date);
-      const tzPart = parts.find(part => part.type === "timeZoneName");
-      if (!tzPart) return null;
+      function getOffsetForTimezone(date, timeZone) {
+        const options = { timeZone, timeZoneName: "short" };
+        const parts = new Intl.DateTimeFormat("en-US", options).formatToParts(
+          date,
+        );
+        const tzPart = parts.find((part) => part.type === "timeZoneName");
+        if (!tzPart) return null;
 
-      const abbr = tzPart.value;
-      const match = abbr.match(/GMT([+-]\d{1,2}):?(\d{2})?/);
-      if (match) {
-        const hours = parseInt(match[1], 10);
-        const minutes = parseInt(match[2] || "0", 10);
-        return hours * 60 + minutes;
+        const abbr = tzPart.value;
+        const match = abbr.match(/GMT([+-]\d{1,2}):?(\d{2})?/);
+        if (match) {
+          const hours = parseInt(match[1], 10);
+          const minutes = parseInt(match[2] || "0", 10);
+          return hours * 60 + minutes;
+        }
+
+        // Fallback to known abbreviations
+        const offsetDate = new Date(date.toLocaleString("en-US", { timeZone }));
+        return -offsetDate.getTimezoneOffset();
       }
 
-      // Fallback to known abbreviations
-      const offsetDate = new Date(date.toLocaleString("en-US", { timeZone }));
-      return -offsetDate.getTimezoneOffset();
-    }
-
-    $(document).ready(function () {
-      $('#timezoneSelect').select2({ placeholder: "Select a timezone...", width: 'resolve' });
-    });
-
-    document.getElementById("convertForm").addEventListener("submit", function (e) {
-      e.preventDefault();
-      const gmtInput = document.getElementById("gmtTime").value;
-      const timezone = document.getElementById("timezoneSelect").value;
-      const gmtDate = new Date(gmtInput + " UTC");
-
-      if (isNaN(gmtDate.getTime())) {
-        document.getElementById("result").textContent = "Invalid GMT date format.";
-        return;
-      }
-
-      try {
-        const offsetMinutes = getOffsetForTimezone(gmtDate, timezone);
-        const key = `${timezone}|${offsetMinutes}`;
-        const abbr = timezoneAbbrMap[key] || timezone;
-
-        const formatter = new Intl.DateTimeFormat("en-US", {
-          timeZone: timezone,
-          weekday: "long",
-          month: "long",
-          day: "numeric",
-          hour: "numeric",
-          minute: "2-digit",
-          hour12: true
+      $(document).ready(function () {
+        $("#timezoneSelect").select2({
+          placeholder: "Select a timezone...",
+          width: "resolve",
         });
-        const parts = formatter.formatToParts(gmtDate);
-        const map = {};
-        parts.forEach(p => map[p.type] = p.value);
+      });
 
-        const dayNum = parseInt(map.day, 10);
-        const suffix = (dayNum % 10 === 1 && dayNum !== 11) ? 'st' :
-                       (dayNum % 10 === 2 && dayNum !== 12) ? 'nd' :
-                       (dayNum % 10 === 3 && dayNum !== 13) ? 'rd' : 'th';
+      document
+        .getElementById("convertForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          const gmtInput = document.getElementById("gmtTime").value;
+          const timezone = document.getElementById("timezoneSelect").value;
+          const gmtDate = new Date(gmtInput + " UTC");
 
-        const formatted = `${map.month} ${dayNum}${suffix}, ${map.hour}:${map.minute} ${map.dayPeriod} ${abbr}, ${map.weekday}`;
+          if (isNaN(gmtDate.getTime())) {
+            document.getElementById("result").textContent =
+              "Invalid GMT date format.";
+            return;
+          }
 
-        document.getElementById("result").innerHTML =
-          `Converted time in ${timezone}:<span id='result-time'>${formatted}</span>`;
-      } catch (err) {
-        document.getElementById("result").textContent = "Error converting time.";
-      }
-    });
-  </script>
-</body>
+          try {
+            const offsetMinutes = getOffsetForTimezone(gmtDate, timezone);
+            const key = `${timezone}|${offsetMinutes}`;
+            const abbr = timezoneAbbrMap[key] || timezone;
+
+            const formatter = new Intl.DateTimeFormat("en-US", {
+              timeZone: timezone,
+              weekday: "long",
+              month: "long",
+              day: "numeric",
+              hour: "numeric",
+              minute: "2-digit",
+              hour12: true,
+            });
+            const parts = formatter.formatToParts(gmtDate);
+            const map = {};
+            parts.forEach((p) => (map[p.type] = p.value));
+
+            const dayNum = parseInt(map.day, 10);
+            const suffix =
+              dayNum % 10 === 1 && dayNum !== 11
+                ? "st"
+                : dayNum % 10 === 2 && dayNum !== 12
+                  ? "nd"
+                  : dayNum % 10 === 3 && dayNum !== 13
+                    ? "rd"
+                    : "th";
+
+            const formatted = `${map.month} ${dayNum}${suffix}, ${map.hour}:${map.minute} ${map.dayPeriod} ${abbr}, ${map.weekday}`;
+
+            document.getElementById("result").innerHTML =
+              `Converted time in ${timezone}:<span id='result-time'>${formatted}</span>`;
+          } catch (err) {
+            document.getElementById("result").textContent =
+              "Error converting time.";
+          }
+        });
+    </script>
+  </body>
 </html>

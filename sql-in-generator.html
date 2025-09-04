@@ -1,116 +1,141 @@
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>SQL IN() GENERATOR</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css" />
-  <style>
-    body { max-width: 600px; margin: 2rem auto; }
-    textarea { height: 200px; }
-    .hidden { display: none; }
-  </style>
-</head>
-<body>
-  <h1>SQL IN() GENERATOR</h1>
+  <head>
+    <meta charset="UTF-8" />
+    <title>SQL IN() GENERATOR</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css"
+    />
+    <style>
+      body {
+        max-width: 600px;
+        margin: 2rem auto;
+      }
+      textarea {
+        height: 200px;
+      }
+      .hidden {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>SQL IN() GENERATOR</h1>
 
-  <input type="file" id="fileInput" accept=".csv, .xlsx, .xls" />
-  <progress id="progressBar" max="100" value="0" class="hidden"></progress>
-  <p id="errorMessage" style="color:red;"></p>
+    <input type="file" id="fileInput" accept=".csv, .xlsx, .xls" />
+    <progress id="progressBar" max="100" value="0" class="hidden"></progress>
+    <p id="errorMessage" style="color: red"></p>
 
-  <label for="columnSelect">Select Column</label>
-  <select id="columnSelect">
-    <option disabled selected>Upload the file first</option>
-  </select>
+    <label for="columnSelect">Select Column</label>
+    <select id="columnSelect">
+      <option disabled selected>Upload the file first</option>
+    </select>
 
-  <fieldset>
-    <legend>Format Output As</legend>
-    <label><input type="radio" name="formatType" value="string" checked /> String (with quotes)</label>
-    <label><input type="radio" name="formatType" value="integer" /> Integer (no quotes)</label>
-  </fieldset>
+    <fieldset>
+      <legend>Format Output As</legend>
+      <label
+        ><input type="radio" name="formatType" value="string" checked /> String
+        (with quotes)</label
+      >
+      <label
+        ><input type="radio" name="formatType" value="integer" /> Integer (no
+        quotes)</label
+      >
+    </fieldset>
 
-  <button id="convertBtn">Convert</button>
-  <textarea id="outputText" readonly placeholder="Converted CSV will appear here..."></textarea>
-  <button id="copyBtn">Copy to Clipboard</button>
+    <button id="convertBtn">Convert</button>
+    <textarea
+      id="outputText"
+      readonly
+      placeholder="Converted CSV will appear here..."
+    ></textarea>
+    <button id="copyBtn">Copy to Clipboard</button>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
-  <script>
-    let parsedData = [];
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    <script>
+      let parsedData = [];
 
-    document.getElementById('fileInput').addEventListener('change', function (e) {
-      const file = e.target.files[0];
-      if (!file) return;
+      document
+        .getElementById("fileInput")
+        .addEventListener("change", function (e) {
+          const file = e.target.files[0];
+          if (!file) return;
 
-      document.getElementById('progressBar').classList.remove('hidden');
-      document.getElementById('errorMessage').textContent = "";
+          document.getElementById("progressBar").classList.remove("hidden");
+          document.getElementById("errorMessage").textContent = "";
 
-      const reader = new FileReader();
-      reader.onload = function (event) {
-        let data = event.target.result;
-        let ext = file.name.split('.').pop().toLowerCase();
+          const reader = new FileReader();
+          reader.onload = function (event) {
+            let data = event.target.result;
+            let ext = file.name.split(".").pop().toLowerCase();
 
-        if (ext === 'csv') {
-          const results = Papa.parse(data, { header: true });
-          parsedData = results.data;
-        } else {
-          const workbook = XLSX.read(data, { type: 'binary' });
-          const sheet = workbook.Sheets[workbook.SheetNames[0]];
-          parsedData = XLSX.utils.sheet_to_json(sheet);
+            if (ext === "csv") {
+              const results = Papa.parse(data, { header: true });
+              parsedData = results.data;
+            } else {
+              const workbook = XLSX.read(data, { type: "binary" });
+              const sheet = workbook.Sheets[workbook.SheetNames[0]];
+              parsedData = XLSX.utils.sheet_to_json(sheet);
+            }
+
+            populateColumnDropdown();
+            document.getElementById("progressBar").value = 100;
+          };
+
+          if (file.name.endsWith(".csv")) {
+            reader.readAsText(file);
+          } else {
+            reader.readAsBinaryString(file);
+          }
+        });
+
+      function populateColumnDropdown() {
+        const dropdown = document.getElementById("columnSelect");
+        dropdown.innerHTML = "";
+
+        if (!parsedData.length) return;
+
+        const headers = Object.keys(parsedData[0]);
+        headers.forEach((col) => {
+          const option = document.createElement("option");
+          option.value = col;
+          option.textContent = col;
+          dropdown.appendChild(option);
+        });
+      }
+
+      document.getElementById("convertBtn").addEventListener("click", () => {
+        const selectedColumn = document.getElementById("columnSelect").value;
+        const formatType = document.querySelector(
+          'input[name="formatType"]:checked',
+        ).value;
+
+        if (!selectedColumn) {
+          alert("Please select a column.");
+          return;
         }
 
-        populateColumnDropdown();
-        document.getElementById('progressBar').value = 100;
-      };
+        const values = parsedData
+          .map((row) => row[selectedColumn])
+          .map((v) => (typeof v === "string" ? v.trim() : v))
+          .filter((v) => v !== undefined && v !== "")
+          .filter((v, i, arr) => arr.indexOf(v) === i); // remove duplicates
 
-      if (file.name.endsWith('.csv')) {
-        reader.readAsText(file);
-      } else {
-        reader.readAsBinaryString(file);
-      }
-    });
+        const formatted = values
+          .map((v) => (formatType === "string" ? `"${v}"` : v))
+          .join(",");
 
-    function populateColumnDropdown() {
-      const dropdown = document.getElementById('columnSelect');
-      dropdown.innerHTML = "";
-
-      if (!parsedData.length) return;
-
-      const headers = Object.keys(parsedData[0]);
-      headers.forEach(col => {
-        const option = document.createElement('option');
-        option.value = col;
-        option.textContent = col;
-        dropdown.appendChild(option);
+        document.getElementById("outputText").value = formatted;
       });
-    }
 
-    document.getElementById('convertBtn').addEventListener('click', () => {
-      const selectedColumn = document.getElementById('columnSelect').value;
-      const formatType = document.querySelector('input[name="formatType"]:checked').value;
-
-      if (!selectedColumn) {
-        alert("Please select a column.");
-        return;
-      }
-
-      const values = parsedData
-        .map(row => row[selectedColumn])
-        .map(v => (typeof v === "string" ? v.trim() : v))
-        .filter(v => v !== undefined && v !== "")
-        .filter((v, i, arr) => arr.indexOf(v) === i); // remove duplicates
-
-      const formatted = values.map(v => formatType === "string" ? `"${v}"` : v).join(",");
-
-      document.getElementById("outputText").value = formatted;
-    });
-
-    document.getElementById('copyBtn').addEventListener('click', () => {
-      const textArea = document.getElementById("outputText");
-      textArea.select();
-      document.execCommand("copy");
-    });
-  </script>
-</body>
+      document.getElementById("copyBtn").addEventListener("click", () => {
+        const textArea = document.getElementById("outputText");
+        textArea.select();
+        document.execCommand("copy");
+      });
+    </script>
+  </body>
 </html>
