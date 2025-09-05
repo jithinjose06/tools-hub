@@ -1,5 +1,12 @@
 # Tools Hub – Changelog
 
+## 1.0.0 (2025-09-05)
+
+
+### Bug Fixes
+
+* **sql-in-generator:** layout + button styling; ignore local files ([38af85c](https://github.com/jithinjose06/tools-hub/commit/38af85c74d147577032f899d89cf8ae8ccbb897d))
+
 ## v1.2.2 – CI & Deploy Automation
 
 - Added **GitHub Actions CI** with Prettier formatting and internal link checks.
