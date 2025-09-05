@@ -8,105 +8,109 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css"
     />
-   <style>
-  body {
-    max-width: 600px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    min-height: 100vh;        /* vertically centers */
-    padding: 16px;
-    box-sizing: border-box;
-  }
+    <style>
+      body {
+        max-width: 600px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        min-height: 100vh; /* vertically centers */
+        padding: 16px;
+        box-sizing: border-box;
+      }
 
-  h1 {
-    font-size: 1.5rem;
-    margin-bottom: 12px;
-    text-align: center;
-  }
+      h1 {
+        font-size: 1.5rem;
+        margin-bottom: 12px;
+        text-align: center;
+      }
 
-  label {
-    margin: 6px 0 2px;
-    font-size: 0.9rem;
-  }
+      label {
+        margin: 6px 0 2px;
+        font-size: 0.9rem;
+      }
 
-  input[type="file"],
-  select,
-  button,
-  textarea {
-    margin: 6px 0;
-    padding: 8px 10px;
-    font-size: 0.95rem;
-  }
+      input[type="file"],
+      select,
+      button,
+      textarea {
+        margin: 6px 0;
+        padding: 8px 10px;
+        font-size: 0.95rem;
+      }
 
-  fieldset {
-    margin: 8px 0;
-    padding: 8px 10px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 0.9rem;
-  }
+      fieldset {
+        margin: 8px 0;
+        padding: 8px 10px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 0.9rem;
+      }
 
-  textarea {
-    height: 90px;       /* shorter so no scroll */
-    resize: vertical;   /* let user expand if needed */
-  }
+      textarea {
+        height: 90px; /* shorter so no scroll */
+        resize: vertical; /* let user expand if needed */
+      }
 
-  .hidden {
-    display: none;
-  }
+      .hidden {
+        display: none;
+      }
 
-  #goBackBtn {
-    display: inline-block;
-    padding: 10px 20px;
-    background: #0077b6;
-    color: #fff;
-    font-weight: 600;
-    font-size: 0.95rem;
-    border-radius: 6px;
-    text-decoration: none;
-    border: none;
-    cursor: pointer;
-    transition: background .2s ease, box-shadow .2s ease, transform .2s ease;
-    box-shadow: 0 2px 4px rgba(0,0,0,.1);
-    margin-top: 10px;
-    align-self: center;
-  }
+      #goBackBtn {
+        display: inline-block;
+        padding: 10px 20px;
+        background: #0077b6;
+        color: #fff;
+        font-weight: 600;
+        font-size: 0.95rem;
+        border-radius: 6px;
+        text-decoration: none;
+        border: none;
+        cursor: pointer;
+        transition:
+          background 0.2s ease,
+          box-shadow 0.2s ease,
+          transform 0.2s ease;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        margin-top: 10px;
+        align-self: center;
+      }
 
-  #goBackBtn:hover,
-  #goBackBtn:focus {
-    background: #0096c7;
-    color: #fff;
-    box-shadow: 0 6px 20px rgba(0,150,199,.5);
-    transform: scale(1.05);
-    outline: none;
-  }
+      #goBackBtn:hover,
+      #goBackBtn:focus {
+        background: #0096c7;
+        color: #fff;
+        box-shadow: 0 6px 20px rgba(0, 150, 199, 0.5);
+        transform: scale(1.05);
+        outline: none;
+      }
 
-input[type="file"]::file-selector-button {
-  background: #0077b6;
-  color: #fff;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background .2s ease, transform .2s ease;
-}
+      input[type="file"]::file-selector-button {
+        background: #0077b6;
+        color: #fff;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 6px;
+        cursor: pointer;
+        transition:
+          background 0.2s ease,
+          transform 0.2s ease;
+      }
 
-input[type="file"]::file-selector-button:hover {
-  background: #0096c7;
-  transform: scale(1.05);
-}
-input[type="file"] {
-  font-size: 0.9rem;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  padding: 6px;
-  background: #fff;
-  color: #333;
-}
-</style>
-
+      input[type="file"]::file-selector-button:hover {
+        background: #0096c7;
+        transform: scale(1.05);
+      }
+      input[type="file"] {
+        font-size: 0.9rem;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        padding: 6px;
+        background: #fff;
+        color: #333;
+      }
+    </style>
   </head>
   <body>
     <h1>SQL IN() GENERATOR</h1>
@@ -141,7 +145,7 @@ input[type="file"] {
     <button id="copyBtn">Copy to Clipboard</button>
 
     <!-- ✅ Back to Home button -->
-    <div style="text-align:center; margin-top: 12px;">
+    <div style="text-align: center; margin-top: 12px">
       <a href="index.html" id="goBackBtn">Go Back to Home</a>
     </div>
 
