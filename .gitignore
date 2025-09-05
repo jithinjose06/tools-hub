@@ -1,0 +1,2 @@
+printf "%s\n" ".DS_Store" "node_modules/" "*_backup.html" >> .gitignore
+git rm --cached .DS_Store 2>/dev/null || true
