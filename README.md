@@ -51,7 +51,15 @@ Open `index.html` and add a link:
 
 ## 📦 Deploying
 
-1. Commit your changes:
+## 🚀 Deploying
+
+1. Format your changes with Prettier:
+
+```bash
+npx prettier --write .
+```
+
+2. Commit your changes:
 
 ```bash
 git add .
@@ -59,12 +67,12 @@ git commit -m "feat: add your-tool-name"
 git push origin main
 ```
 
-2. GitHub Actions will:
+3. GitHub Actions will:
 
    - Run CI checks.
    - Deploy to the FTP server if checks pass.
 
-3. Verify live at: [https://fastshoes.co.za/jithin/tools/](https://fastshoes.co.za/jithin/tools/).
+4. Verify live at: [https://fastshoes.co.za/jithin/tools/](https://fastshoes.co.za/jithin/tools/).
 
 ---
 
