@@ -16,7 +16,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Deploy via FTP (plain FTP on port 21)
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4   # <-- pin exact version
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.6   # <-- pin exact version
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
